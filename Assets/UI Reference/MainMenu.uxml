@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
+    <Style src="project://database/Assets/UI%20Reference/buttonStyle.uss?fileID=7433441132597879392&amp;guid=f33eaac286f9d1e49b1bf164c3dadc47&amp;type=3#buttonStyle" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement style="height: 417px; width: 394px; background-color: rgba(255, 255, 255, 255); border-top-left-radius: 15px; border-bottom-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; align-items: center; justify-content: center;">
+            <ui:Label text="Main Menu&#10;" display-tooltip-when-elided="true" style="height: 29px; width: 128px; font-size: 24px; background-color: rgba(255, 255, 255, 255); -unity-background-image-tint-color: rgba(255, 255, 255, 255); -unity-text-outline-color: rgba(0, 0, 0, 255); text-shadow: 0 0 0 rgba(0, 0, 0, 255); color: rgba(77, 77, 77, 255); position: absolute; margin-top: 0; top: 20px;" />
+            <ui:Button text="Start" display-tooltip-when-elided="true" class="button-style" />
+            <ui:Button text="Settings" display-tooltip-when-elided="true" class="button-style" style="margin-top: 1px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
