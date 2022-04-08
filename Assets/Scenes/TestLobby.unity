@@ -1564,6 +1564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 193570851}
   - component: {fileID: 193570853}
+  - component: {fileID: 193570854}
   m_Layer: 5
   m_Name: MainMenuPanel
   m_TagString: Untagged
@@ -1592,6 +1593,7 @@ RectTransform:
   - {fileID: 595185736}
   - {fileID: 765535865}
   - {fileID: 296660852}
+  - {fileID: 2118654875}
   m_Father: {fileID: 654285642}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1608,6 +1610,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193570850}
   m_CullTransparentMesh: 1
+--- !u!114 &193570854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193570850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f406a581daf5460438b1e7e1ee589116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controledButtons:
+  - {fileID: 264077869}
+  - {fileID: 1054934145}
+  - {fileID: 1325942528}
+  - {fileID: 1548058594}
+  searchCancelButton: {fileID: 2008728368}
+  findRoomGo: {fileID: 765535864}
 --- !u!1 &202436821
 GameObject:
   m_ObjectHideFlags: 0
@@ -7653,7 +7674,7 @@ MonoBehaviour:
   loadNewPanel: {fileID: 1006452713}
   startCountingTime: 0.3
   timeToEndCounting: 0
-  lastStartCountingTime: 0
+  lastStartCountingTime: 0.3
   lastToEndCounting: 0
 --- !u!114 &1064527042
 MonoBehaviour:
@@ -10694,6 +10715,7 @@ GameObject:
   - component: {fileID: 1775052023}
   - component: {fileID: 1775052019}
   - component: {fileID: 1775052022}
+  - component: {fileID: 1775052024}
   m_Layer: 5
   m_Name: ExitJoiningButton
   m_TagString: Untagged
@@ -10778,6 +10800,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 193570854}
+        m_TargetAssemblyTypeName: ControlPermisionButtons, Assembly-CSharp
+        m_MethodName: ButtonControl
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1775052021
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10828,6 +10862,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1775052024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775052017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb0422a05f967a4faad60cdec53050e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rect: {fileID: 595185736}
 --- !u!1 &1775383411
 GameObject:
   m_ObjectHideFlags: 0
@@ -12299,6 +12346,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 193570854}
+        m_TargetAssemblyTypeName: ControlPermisionButtons, Assembly-CSharp
+        m_MethodName: ButtonControl
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 2141160114}
         m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
         m_MethodName: StopSearchMatchmaking
@@ -13102,6 +13161,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112535509}
   m_CullTransparentMesh: 1
+--- !u!1 &2118654874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2118654875}
+  m_Layer: 5
+  m_Name: ControlButtons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2118654875
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118654874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 193570851}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2119507058
 GameObject:
   m_ObjectHideFlags: 0
@@ -13268,7 +13363,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2141160113}
-  - component: {fileID: 2141160112}
   - component: {fileID: 2141160114}
   m_Layer: 0
   m_Name: NetworkManager
@@ -13277,22 +13371,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2141160112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141160111}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b707ff76e0db349bafb19bece09d81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statusNetwork: {fileID: 2119507060}
-  startButton: {fileID: 1887679973}
-  joinButton: {fileID: 1141605123}
-  countTable: 10
 --- !u!4 &2141160113
 Transform:
   m_ObjectHideFlags: 0
