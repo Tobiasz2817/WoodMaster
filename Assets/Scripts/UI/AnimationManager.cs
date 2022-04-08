@@ -38,6 +38,7 @@ public class AnimationManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         PlayAnimation(anim,nameAnimtion);
+        
+        StopAllCoroutines();
     }
-
 }

@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using System.Threading.Tasks;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
@@ -54,6 +55,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private Dictionary<int, GameObject> players;
     private bool isReady = false;
+    private bool isWaiting = false;
 
     private int currentScene = 0;
 
@@ -84,6 +86,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     }
 
+    private IEnumerator WaitForTime()
+    {
+        yield return new WaitForSeconds(1f);
+        isWaiting = false;
+    }
     #region Callbacks Content
 
     public override void OnConnected()
@@ -93,6 +100,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log(" Po³¹czy³es siê z serwerem ");
+            
+        /*SetPersistentListenerStateButton(UnityEngine.Events.UnityEventCallState.RuntimeOnly);*/
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
@@ -115,7 +124,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             findGamePanel.SetActive(false);
             timeToJoin.transform.GetChild(1).GetComponent<CountDownTime>().ResetTime();
             animatiorManager.GetComponent<AnimationManager>().PlayAnimation(searchContentAnim, AnimationManager.MOVE_SEARCH_DOWN);
-
+        
 
             return;
         }
@@ -129,13 +138,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
 
         RefillingTheLooby();
-
     }
     public override void OnLeftRoom()
     {
         timeToJoin.transform.GetChild(1).GetComponent<CountDownTime>().ResetTime();
         findGamePanel.SetActive(false);
-        SetPersistentListenerStateButton(UnityEngine.Events.UnityEventCallState.RuntimeOnly);
 
         foreach (var leavePlayer in players.Values)
         {
@@ -144,6 +151,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         players.Clear();
         players = null;
+        StartCoroutine(WaitForTime());
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -185,7 +193,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        SetPersistentListenerStateButton(UnityEngine.Events.UnityEventCallState.Off);
+        /*SetPersistentListenerStateButton(UnityEngine.Events.UnityEventCallState.Off);*/
 
         Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber - 1);
 
@@ -221,7 +229,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
 
         Debug.Log("Do³¹czy³em do pokoju " + PhotonNetwork.CurrentRoom.Name + " Jest w nim aktualnie " + PhotonNetwork.CurrentRoom.PlayerCount);
-
     }
     public override void OnCreatedRoom()
     {
@@ -394,6 +401,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     
     public void StartSearchMatchmaking()
     {
+        if (isWaiting == true) return;
+
         animatiorManager.GetComponent<AnimationManager>().PlayAnimation(searchContentAnim,AnimationManager.MOVE_SEARCH_DOWN);
 
         ExitGames.Client.Photon.Hashtable dictionaryEntries = new ExitGames.Client.Photon.Hashtable();
@@ -420,13 +429,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinRandomRoom();
             return;
         }
-
+ 
         PhotonNetwork.JoinRandomRoom(dictionaryEntries,0);
-       
+        
+        isWaiting = true;
     }
     public void LeaveReffilingRoom()
     {
-
         if(PhotonNetwork.InRoom)
         {
             PhotonNetwork.LeaveRoom();
@@ -442,11 +451,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void StopSearchMatchmaking()
     {
         animatiorManager.GetComponent<AnimationManager>().PlayAnimation(searchContentAnim, AnimationManager.MOVE_SEARCH_UP);
-
         ExitRoomOrLobby();
     }
     public void SoloRoomEntry()
     {
+        if (!PhotonNetwork.IsConnected || PhotonNetwork.InLobby || PhotonNetwork.InRoom) return;
+        if (isWaiting) return;
+        
         ChangeStatePanel(loadingPanel.name);
 
         string roomName = "Room " + Random.Range(1,10000000);
@@ -490,6 +501,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         options.CustomRoomProperties = custonPropertiesGame;
 
         PhotonNetwork.CreateRoom(roomName, options);
+        
+        
+        isWaiting = true;
     }
     private int SetDistanceTreeByToggle()
     {
