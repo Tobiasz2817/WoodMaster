@@ -36,13 +36,13 @@ public class PlayerSwampSite : MonoBehaviourPun
         photonView.RPC("SyncSwamp", RpcTarget.AllBuffered, leftSite, rightSite, inputControl.name);
 
         currentKey = inputControl.name;
-        Debug.Log(" Methods iterrations" ); 
+        /*Debug.Log(" Methods iterrations" ); */
     }
 
     [PunRPC]
     public void SyncSwamp(Vector2 leftSite,Vector2 rightSite, string currentKey)
     {
-         Debug.Log("left site " + leftSite + " right Site " + rightSite);
+         /*Debug.Log("left site " + leftSite + " right Site " + rightSite);*/
 
         if (currentKey == "a")
         {
@@ -59,6 +59,6 @@ public class PlayerSwampSite : MonoBehaviourPun
         rightHandSprite.flipX = !rightHandSprite.flipX;
         gun.GetComponent<SpriteRenderer>().flipX = !gun.GetComponent<SpriteRenderer>().flipX;
 
-        Debug.Log("Flip now");
+        /*Debug.Log("Flip now");*/
     }
 }

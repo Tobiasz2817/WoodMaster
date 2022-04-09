@@ -4,8 +4,6 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
-using System.Threading.Tasks;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
@@ -73,19 +71,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
            
         }
+
+        if(ManageScene.GetIndexStartedMenu() == 0)
+            ChangeStatePanel(startScreenPanel.name);
         else
-        {
             ChangeStatePanel(mainMenuPanel.name);
-        }
-
-        ChangeStatePanel(startScreenPanel.name);
     }
-    private void Update()
-    {
-        statusConnecting.text = " Stan sieci: " + PhotonNetwork.NetworkClientState;
-
-    }
-
     private IEnumerator WaitForTime()
     {
         yield return new WaitForSeconds(1f);
@@ -94,12 +85,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #region Callbacks Content
 
     public override void OnConnected()
-    {
-        Debug.Log(" Po³¹czy³es siê z sieci¹ ");
+    { 
+        /*Debug.Log(" Po³¹czy³es siê z sieci¹ ");*/
     }
     public override void OnConnectedToMaster()
     {
-        Debug.Log(" Po³¹czy³es siê z serwerem ");
+        /*Debug.Log(" Po³¹czy³es siê z serwerem ");*/
             
         /*SetPersistentListenerStateButton(UnityEngine.Events.UnityEventCallState.RuntimeOnly);*/
     }
@@ -110,9 +101,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log(" Other Player Actor number when left room " + (otherPlayer.ActorNumber));
+        /*Debug.Log(" Other Player Actor number when left room " + (otherPlayer.ActorNumber));
 
-        Debug.Log(otherPlayer.ActorNumber);
+        Debug.Log(otherPlayer.ActorNumber);*/
 
         Destroy(players[otherPlayer.ActorNumber].gameObject);
 
@@ -155,7 +146,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log(newPlayer.ActorNumber - 1);
+        /*Debug.Log(newPlayer.ActorNumber - 1);*/
         
         GameObject playerGO = Instantiate(playerGameObject, playerPanelTransform);
         playerGO.transform.localScale = Vector3.one;
@@ -180,14 +171,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         
 
+        /*
         Debug.Log("Do³¹czy³em do pokoju " + PhotonNetwork.CurrentRoom.Name + " Jest w nim aktualnie " + PhotonNetwork.CurrentRoom.PlayerCount);
+        */
         
+    }
+
+    private IEnumerator DelayTime()
+    {
+        yield return new WaitForSeconds(1f);
+        newScene(1);
     }
     public override void OnJoinedRoom()
     {
         if(!PhotonNetwork.CurrentRoom.IsVisible)
         {
-            newScene(1);
+            StartCoroutine(DelayTime());
             
 
             return;
@@ -195,7 +194,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         /*SetPersistentListenerStateButton(UnityEngine.Events.UnityEventCallState.Off);*/
 
-        Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber - 1);
+        /*Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber - 1);*/
 
         if (players == null)
         {
@@ -228,11 +227,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             players.Add(player.ActorNumber, playerGO);
         }
 
+        /*
         Debug.Log("Do³¹czy³em do pokoju " + PhotonNetwork.CurrentRoom.Name + " Jest w nim aktualnie " + PhotonNetwork.CurrentRoom.PlayerCount);
+    */
     }
     public override void OnCreatedRoom()
     {
+        /*
         Debug.Log("Utworzy³em pokój " + PhotonNetwork.CurrentRoom.Name);   
+    */
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
@@ -421,7 +424,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         foreach (var item in dictionaryEntries.Keys)
         {
+            /*
             Debug.Log("START SEARCH MATCHMAKING KEY " + item);
+        */
         }
 
         if (isOnCount == distanceTreeToggle.Count - 1 || isOnCount == 0)
@@ -491,8 +496,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         string keyRoom = valueProperties.ToString();
         string[] randomBranch = { keyRoom };
 
-        Debug.Log(" VALUE PROPERTIES " + valueProperties);
-        Debug.Log(" KEY PROPERTIES IN CREATE ROOM " + keyRoom);
+        /*Debug.Log(" VALUE PROPERTIES " + valueProperties);
+        Debug.Log(" KEY PROPERTIES IN CREATE ROOM " + keyRoom);*/
 
         ExitGames.Client.Photon.Hashtable custonPropertiesGame = new ExitGames.Client.Photon.Hashtable();
         custonPropertiesGame.Add(keyRoom, valueProperties);
@@ -639,7 +644,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         }
 
-        Debug.Log(tableNumber[countArray - 1]);
+        /*Debug.Log(tableNumber[countArray - 1]);*/
 
         return tableNumber;
     }
@@ -675,7 +680,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         mainMenuPanel.SetActive(namePanel.Equals(mainMenuPanel.name));
         createRoomPanel.SetActive(namePanel.Equals(createRoomPanel.name));
         waitingRoomPanel.SetActive(namePanel.Equals(waitingRoomPanel.name));
-        loadingPanel.SetActive(name.Equals(loadingPanel.name));
+        loadingPanel.SetActive(namePanel.Equals(loadingPanel.name));
     }
     private void ChangeState()
     {
@@ -683,39 +688,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.CurrentRoom.MaxPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
     }
-    private void SetPersistentListenerStateButton( UnityEngine.Events.UnityEventCallState unityEventCallState)
-    {
-        searchGameButton.onClick.SetPersistentListenerState(0, unityEventCallState);  
-        playSoloButton.onClick.SetPersistentListenerState(0, unityEventCallState);
-
-        //settingButton.onClick.SetPersistentListenerState(0, unityEventCallState);
-        //championSelectionButton.onClick.SetPersistentListenerState(0, unityEventCallState);
-    }
     public void newScene(int sceneNumber)
     {
         SceneManager.LoadScene(sceneNumber);
-
-        if (SceneManager.GetActiveScene().buildIndex != sceneNumber)
-        {
-            StartCoroutine("waitForSceneLoad", sceneNumber);
-        }
     }
 
-    IEnumerator waitForSceneLoad(int sceneNumber)
+    public void QuitGame()
     {
-        while (SceneManager.GetActiveScene().buildIndex != sceneNumber)
-        {
-            Debug.Log( " Active Scene " + SceneManager.GetActiveScene());
-
-            yield return null;
-        }
-
-        // Do anything after proper scene has been loaded
-        if (SceneManager.GetActiveScene().buildIndex == sceneNumber)
-        {
-            GameObject.Find("LoadingPanel").SetActive(true);        
-        }
-        currentScene = sceneNumber;
+        Application.Quit();
     }
     #endregion
 

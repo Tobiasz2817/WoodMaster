@@ -19,7 +19,7 @@ public class ExitJoinButtonControl : MonoBehaviour
     {
         if (rect != null)
         {
-            if (rect.anchoredPosition3D.y != anchorUp)
+            if (rect.anchoredPosition3D.y < anchorUp - 1)
             {
                 if(button.onClick.GetPersistentListenerState(0) == UnityEventCallState.RuntimeOnly)
                     button.onClick.SetPersistentListenerState(0,UnityEventCallState.Off);
@@ -29,6 +29,7 @@ public class ExitJoinButtonControl : MonoBehaviour
                 if (button.onClick.GetPersistentListenerState(0) == UnityEventCallState.Off) 
                     button.onClick.SetPersistentListenerState(0,UnityEventCallState.RuntimeOnly);
                 
+                Debug.Log(button.onClick.GetPersistentListenerState(0) == UnityEventCallState.Off);
             }
         }
     }

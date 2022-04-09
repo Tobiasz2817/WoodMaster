@@ -104,7 +104,7 @@ public class PlayerManager : MonoBehaviourPun
     [PunRPC]
     public void CreateTree(float spawnOnX, int playerID) 
     {
-        Debug.Log("Func 'Create Tree' playerID = " + playerID);
+        /*Debug.Log("Func 'Create Tree' playerID = " + playerID);*/
 
         for (int i = 0; i < gameManager.countTree; i++)
         {
@@ -124,7 +124,7 @@ public class PlayerManager : MonoBehaviourPun
     {
         if(hit.action.triggered)
         {
-            Debug.Log("JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            /*Debug.Log("JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");*/
         }
     }
 
@@ -138,7 +138,7 @@ public class PlayerManager : MonoBehaviourPun
         if (hit.action.triggered)
         {
 
-            Debug.Log("hit");
+            /*Debug.Log("hit");*/
 
             object value;
             if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(TIMBER_MULTIPLAYER.PLAYER_SWAMP_SIDE, out value))
@@ -199,7 +199,7 @@ public class PlayerManager : MonoBehaviourPun
             }
         }
 
-        Debug.Log("Collision with " + collision.name);
+        /*Debug.Log("Collision with " + collision.name);*/
     }
     IEnumerator CheckPlayerDie()
     {
