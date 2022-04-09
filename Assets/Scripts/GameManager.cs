@@ -86,13 +86,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             object value;
             if(player[i].CustomProperties.TryGetValue(TIMBER_MULTIPLAYER.PLAYER_DIE,out value))
             {
-                Debug.Log(" Value is Equals " + (bool)value);
+                /*Debug.Log(" Value is Equals " + (bool)value);*/
 
                 if ((bool)value == true)
                 {
                     x++;
 
-                    Debug.Log(" X is Equals = " + x);
+                    /*Debug.Log(" X is Equals = " + x);*/
                 }
             }
         }
@@ -122,19 +122,18 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
 
-        Debug.Log(" Methods CheckWhenALlPlayersDieOrWin " + x + playersCountInRoom);
+        /*Debug.Log(" Methods CheckWhenALlPlayersDieOrWin " + x + playersCountInRoom);*/
     }
 
     public IEnumerator SetActiveRestartLobby()
     {
-        yield return new WaitForSeconds(5f);
-        restartLobby.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        LoadMainMenuExitButton();
     }
     public void LoadMainMenuExitButton()
     {
-        
         PhotonNetwork.AutomaticallySyncScene = false;
-
+        ManageScene.SetIndexStartedMenu(1);
         PhotonNetwork.LeaveRoom();
     }
     public override void OnLeftRoom()
@@ -192,7 +191,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             actorNumbersDictionary.Add(actorNumber, i);
 
-            Debug.Log(" Number " + actorNumber + " indexItter " + i);
+            /*Debug.Log(" Number " + actorNumber + " indexItter " + i);*/
             i++;
         }
 
@@ -204,7 +203,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
 
-        Debug.Log(" Index my Number: " + indexMyNumber);
+        /*Debug.Log(" Index my Number: " + indexMyNumber);*/
 
         return indexMyNumber;
     }
