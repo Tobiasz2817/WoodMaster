@@ -17,12 +17,7 @@ public class ControlPermisionButtons : MonoBehaviour
     private Coroutine coroutineX;
 
     private Coroutine coroutine;
-
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
+    
     void Update()
     {
         if (!PhotonNetwork.IsConnected || PhotonNetwork.InRoom || PhotonNetwork.InLobby)

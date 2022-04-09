@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviourPun
                 photonView.RPC("CloneTable",RpcTarget.AllBuffered, tableNumberTree);
                 gameManager.countTree = tableNumberTree.Length;
 
-                Debug.Log(randomRangeTable.Length);
+                /*Debug.Log(randomRangeTable.Length);*/
             }
         }
 
