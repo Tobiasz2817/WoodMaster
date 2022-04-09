@@ -12,8 +12,10 @@ public class ManageScene : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
-        ManageSceneHandle = this;
+        if(manageScene == 0)
+            DontDestroyOnLoad(transform.gameObject);
+        if(ManageSceneHandle == null)
+            ManageSceneHandle = this;
     }
 
     public static int GetIndexStartedMenu()
